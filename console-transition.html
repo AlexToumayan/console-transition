@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console-like Website</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: monospace;
+            background-color: #000;
+        }
+        #instruction {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #0f0;
+            font-size: 24px;
+        }
+        #console {
+            color: #0f0;
+            padding: 20px;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div id="instruction">Press Enter to Continue</div>
+    <div id="console"></div>
+    <script>
+        const consoleElement = document.getElementById('console');
+
+        const websiteCode = '...'; // Your console animation code
+
+        let currentIndex = 0;
+
+        const typeCharacter = () => {
+            if (currentIndex < websiteCode.length) {
+                consoleElement.textContent += websiteCode[currentIndex];
+                currentIndex++;
+                setTimeout(typeCharacter, 50);
+            } else {
+                showWebsite();
+            }
+        };
+
+        const hideInstruction = () => {
+            const instructionElement = document.getElementById('instruction');
+            instructionElement.style.display = 'none';
+        };
+
+        const showWebsite = () => {
+            consoleElement.style.display = 'none';
+            const iframe = document.createElement('iframe');
+            iframe.src = 'https://toumayanalex.wixsite.com/alextoumayan'; // Replace with your Wix site URL
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = 'none';
+            document.body.appendChild(iframe);
+        };
+
+        document.addEventListener('keydown', (event) => {
+            if (event.keyCode === 13) {
+                hideInstruction();
+                typeCharacter();
+            }
+        });
+    </script>
+</body>
+</html>
